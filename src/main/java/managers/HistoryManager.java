@@ -14,7 +14,7 @@ public class HistoryManager extends ModelManager{
 
 
     public static void addHistory(String senderId, String receivedId, String cardId) {
-        String query = "insert into users(sender_id, receiver_id, card_id, date) " +
+        String query = "insert into histories(sender_id, receiver_id, card_id, date) " +
                 "values(" + senderId + ", " + receivedId + ", " + cardId + ", " +
                 new Date(System.currentTimeMillis()) + ");";
 
@@ -95,7 +95,7 @@ public class HistoryManager extends ModelManager{
         history.setSenderId(resultSet.getString("sender_id"));
         history.setReceiverId(resultSet.getString("receiver_id"));
         history.setCardId(resultSet.getString("card_id"));
-        history.setDate(resultSet.getDate("date"));
+        history.setDate(resultSet.getString("date"));
         return history;
     }
 

@@ -75,7 +75,7 @@ create table if not exists histories(
     sender_id int,
     receiver_id int,
     card_id int,
-    date date,
+    date text,
     foreign key(sender_id) references users(id) on delete cascade,
     foreign key(receiver_id) references users(id) on delete cascade,
     foreign key(card_id) references cards(id) on delete cascade
