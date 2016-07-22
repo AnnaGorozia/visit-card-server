@@ -22,7 +22,7 @@ public class HistoryManager extends ModelManager{
 
     }
 
-    public ArrayList<History> getUserHistory(String userId) {
+    public static ArrayList<History> getUserHistory(String userId) {
         ArrayList<History> histories = new ArrayList<History>();
 
         try {
@@ -41,7 +41,7 @@ public class HistoryManager extends ModelManager{
         return histories;
     }
 
-    public ArrayList<History> getUserReceivedHistory(String userId) {
+    public static ArrayList<History> getUserReceivedHistory(String userId) {
         ArrayList<History> histories = new ArrayList<History>();
 
         try {
@@ -60,7 +60,7 @@ public class HistoryManager extends ModelManager{
         return histories;
     }
 
-    public ArrayList<History> getCompanyHistory(String companyId) {
+    public static ArrayList<History> getCompanyHistory(String companyId) {
         ArrayList<History> histories = new ArrayList<History>();
 
         try {
@@ -84,7 +84,7 @@ public class HistoryManager extends ModelManager{
     }
 
 
-    private History generateHistory(ResultSet resultSet) throws SQLException {
+    private static History generateHistory(ResultSet resultSet) throws SQLException {
         History history = new History();
         history.setSenderId(resultSet.getString("sender_id"));
         history.setReceiverId(resultSet.getString("receiver_id"));

@@ -8,9 +8,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyManager extends ModelManager{
 
+
+    public static List<Company> getAllCompanies() {
+        List<Company> companies = new ArrayList<Company>();
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            String query = "SELECT * FROM companies";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Company company = generateCompany(resultSet);
+                companies.add(company);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return companies;
+    }
 
     public static void addCompany(Company company) {
         String query = "insert into companies(name, email, password, address, phone)\n" +
