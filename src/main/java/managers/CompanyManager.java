@@ -25,6 +25,7 @@ public class CompanyManager extends ModelManager{
                 Company company = generateCompany(resultSet);
                 companies.add(company);
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,6 +55,7 @@ public class CompanyManager extends ModelManager{
                 companyId = resultSet.getString("id");
                 break;
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,6 +75,7 @@ public class CompanyManager extends ModelManager{
                 company = generateCompany(resultSet);
                 break;
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,8 +97,9 @@ public class CompanyManager extends ModelManager{
 
     public static void addEmployee(String companyid, User user) {
         String query = "insert into company_employees(company_id, user_id)\n" +
-                "values ('" + companyid + "','" +
-                user.getid() + "');";
+                "values (" + companyid + ", " +
+                user.getid() + ");";
+        System.out.println(query);
         executeQuery(query);
     }
 
