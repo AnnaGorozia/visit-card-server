@@ -9,7 +9,7 @@ Create table if not exists users (
     first_name nvarchar(32),
     last_name nvarchar(32),
     image nvarchar(32),
-    main_email nvarchar(32),
+    email nvarchar(32),
     password nvarchar(64),
     phone nvarchar(32)
 );
