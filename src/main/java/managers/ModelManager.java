@@ -13,7 +13,7 @@ public abstract class ModelManager {
             Connection con = DBConfig.getDataSource().getConnection();
             PreparedStatement stmt = con.prepareStatement(query);
             int result = stmt.executeUpdate();
-
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

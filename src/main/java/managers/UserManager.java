@@ -97,6 +97,40 @@ public class UserManager extends ModelManager {
         return result;
     }
 
+    public static void addCompany(String userid, String companyid) {
+
+        String query = "insert into company_employees(company_id, user_id) values(" + companyid + "," + userid + ");";
+        executeQuery(query);
+
+    }
+
+
+    public static void deleteCompany(String userid, String companyid) {
+        String query = "delete from company_employees where company_id=" + companyid + " and user_id=" + userid + ";";
+
+        executeQuery(query);
+    }
+
+    public static ArrayList<String> getCompaniesThisUserDoesntWorkIn(String userid) {
+
+        ArrayList<String> result = new ArrayList<String>();
+
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            String query = "select distinct(companies.id) from users, companies, company_employees where not " +
+                    "exists(select * from company_employees where user_id= " + userid + " and company_id = companies.id);\n";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                String companyid = resultSet.getString(1);
+                result.add(companyid);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
     private static User generateUser(ResultSet resultSet) throws SQLException {
         User user = new User();
