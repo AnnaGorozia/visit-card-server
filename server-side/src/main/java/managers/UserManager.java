@@ -49,30 +49,74 @@ public class UserManager {
         return user;
     }
 
-    public void addUser(User user) {}
+    public static void addUser(User user) {
 
-    public String getUserIDByEmail(String userEmail) {return null; }
+        String query = "insert into users(first_name, last_name, image, email, password, phone) " +
+                        "values('" + user.getFirstName() + "','" + user.getLastName() + "','" +
+                        user.getImage() + "','" + user.getEmail() + "','" + user.getPassword() + "','" +
+                        user.getPhone() + "');";
 
-    public void addUsers(ArrayList<User> usersList) {}
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+            int result = stmt.executeUpdate();
 
-    public void updateFirstName(String userid, String newName) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-    public void updateLastName(String userid, String lastName) {}
+    }
 
-    public void updateImage(String userid, String newImage) {}
+    public static  void addUsers(ArrayList<User> usersList) {
 
-    public void updatePassword(String userid, String newPassword) {}
+        for(User user : usersList) {
+            addUser(user);
+        }
+    }
 
-    public void updatePhone(String userid, String newPhone) {}
+    public static void updateUser(User user) {
 
-    public String getUserCompanyId(String userid) { return null; }
+        String query = "update users set first_name='" + user.getFirstName() + "',last_name='" +
+                user.getLastName() + "',image='" + user.getImage() + "',password='" + user.getPassword() +
+                "',phone='" + user.getPhone() + "' where email='" + user.getEmail() + "';";
+
+
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+            int result = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<String> getUserCompanyIds(String userid) {
+
+        ArrayList<String> result = new ArrayList<String>();
+
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            String query = "SELECT company_id from users, company_employees where users.id=user_id";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                String companyid = resultSet.getString(1);
+                result.add(companyid);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
 
     private static User generateUser(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
-        user.setMainMail(resultSet.getString("main_email"));
+        user.setEmail(resultSet.getString("email"));
         user.setPhone( resultSet.getString("phone"));
         return user;
     }

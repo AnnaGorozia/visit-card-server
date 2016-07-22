@@ -1,6 +1,7 @@
 package managers;
 
 import models.Company;
+import models.User;
 
 /**
  * Created by Anna on 7/21/2016.
@@ -15,6 +16,5 @@ public class CompanyManager {
     public String getCompany(String companyid) { return null; }
 
     public void addEmployee(String companyid, User user) {}
-
 
 }
