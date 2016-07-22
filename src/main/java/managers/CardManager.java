@@ -4,10 +4,7 @@ import models.Card;
 
 import java.util.ArrayList;
 
-/**
- * Created by Anna on 7/21/2016.
- */
-public class CardManager {
+public class CardManager extends CompanyManager{
 
 
     public ArrayList<Card> getCardsForUser(String userid) {return null;}
@@ -17,7 +14,6 @@ public class CardManager {
     public void addCard(Card card) {}
 
     public void updateCardForUser(String userid, Card card) {}
-
 
     public ArrayList<Card> getReceivedCards(String userid) { return null; }
 }
