@@ -1,56 +1,39 @@
 package models;
 
-
+import java.util.ArrayList;
 
 /**
- * Created by khrak on 7/21/16.
+ * Created by khrak on 7/22/16.
  */
 public class Card {
 
-    private double xCoordinate, yCoordinate;
-    private FieldType fieldType;
-    private String fieldValue;
-    private String color;
-    private String font;  // Italic, Aerial...
-    private String fontSize;
+    private String id;
+    private ArrayList<Field> fields = new ArrayList<Field>();
 
 
-    public Card(double xCoordinate, double yCoordinate, FieldType fieldType, String fieldValue,
-                String color, String font, String fontSize) {
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.fieldType = fieldType;
-        this.fieldValue = fieldValue;
-        this.color = color;
-        this.font = font;
-        this.fontSize = fontSize;
+    public Card(String id) {
+        this.id = id;
     }
 
-    public String getFontSize() {
-        return fontSize;
+    public Card() {
+
     }
 
-    public String getFont() {
-        return font;
+    public String getid(){
+        return id;
     }
 
-    public String getColor() {
-        return color;
+    public void setid(String id) {
+        this.id = id;
     }
 
-    public String getFieldValue() {
-        return fieldValue;
+    public void addField(Field field) {
+        fields.add(field);
     }
 
-    public FieldType getFieldType() {
-        return fieldType;
+    public ArrayList<Field> getFields(){
+        return fields;
     }
 
-    public double getyCoordinate() {
-        return yCoordinate;
-    }
 
-    public double getxCoordinate() {
-        return xCoordinate;
-    }
 }

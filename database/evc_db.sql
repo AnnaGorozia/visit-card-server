@@ -2,7 +2,7 @@ DROP database if exists evc_db;
 CREATE database evc_db;
 Use evc_db;
 
-set foreign_key_checks=0;
+set foreign_key_checks=1;
 
 Create table if not exists users (
 	id int not null auto_increment primary key,
@@ -29,8 +29,8 @@ create table if not exists company_employees(
 	id int not null auto_increment primary key,
     company_id int,
     user_id int,
-    foreign key(company_id) references companies(id),
-    foreign key(user_id) references users(id)
+    foreign key(company_id) references companies(id) on delete cascade,
+    foreign key(user_id) references users(id) on delete cascade
 );
 
 create table if not exists cards(
@@ -39,10 +39,7 @@ create table if not exists cards(
     width int
 );
 
-create table if not exists field_names(
-	id int not null auto_increment primary key,
-    name text
-);
+
 
 create table if not exists field_properties(
 	id int not null auto_increment primary key,
@@ -51,24 +48,26 @@ create table if not exists field_properties(
     location_x int,
     location_y int,
     field_value text,
-    foreign key(card_id) references cards(id),
-    foreign key(field_name_id) references field_name(id)
+    field_color_id int,
+    field_font_id int,
+    font_size int,
+    foreign key(card_id) references cards(id) on delete cascade
 );
 
 create table if not exists company_cards(
 	id int not null auto_increment primary key,
     company_id int,
     card_id int,
-    foreign key(card_id) references cards(id),
-    foreign key(company_id) references companies(id)
+    foreign key(card_id) references cards(id) on delete cascade,
+    foreign key(company_id) references companies(id) on delete cascade
 );
 
 create table if not exists user_cards(
 	id int not null auto_increment primary key,
     user_id int,
     card_id int,
-    foreign key(user_id) references users(id),
-    foreign key(card_id) references cards(id)
+    foreign key(user_id) references users(id) on delete cascade,
+    foreign key(card_id) references cards(id) on delete cascade
 );
 
 create table if not exists histories(
@@ -77,16 +76,31 @@ create table if not exists histories(
     receiver_id int,
     card_id int,
     date date,
-    foreign key(sender_id) references users(id),
-    foreign key(receiver_id) references users(id),
-    foreign key(card_id) references cards(id)
+    foreign key(sender_id) references users(id) on delete cascade,
+    foreign key(receiver_id) references users(id) on delete cascade,
+    foreign key(card_id) references cards(id) on delete cascade
 );
 
 
-insert into users (first_name, last_name, main_email, password, phone)
+insert into users (first_name, last_name, email, password, phone)
 values
 ('Anano', 'Bodokia', 'anano@gmail.com', '3242342342', '568989898'),
 ('Anna', 'Gorozia', 'anna@gmail.com', '1212121212', '595504124'),
 ('Mamuka', 'Sakhelashvili', 'mamuka@gmail.com', '5656565656', '555094043');
 
-select * from users
+select * from users;
+
+
+insert into cards(width, height) values(50,50);
+
+
+insert into field_properties(field_name_id, card_id, location_x, location_y, field_value,
+                            field_color_id, field_font_id, font_size)
+                            values(1, 1, 40, 40, "John", 1, 1, 17);
+
+insert into user_cards(user_id, card_id) values(1,1);
+
+insert into companies(name) values('ss');
+
+insert into company_cards(company_id, card_id) values(1,1);
+
