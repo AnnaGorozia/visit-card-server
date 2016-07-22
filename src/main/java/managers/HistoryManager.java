@@ -15,8 +15,8 @@ public class HistoryManager extends ModelManager{
 
     public static void addHistory(String senderId, String receivedId, String cardId) {
         String query = "insert into users(sender_id, receiver_id, card_id, date) " +
-                "values('" + senderId + "','" + receivedId + "','" + cardId + "','" +
-                new Date(System.currentTimeMillis()) + "');";
+                "values(" + senderId + ", " + receivedId + ", " + cardId + ", " +
+                new Date(System.currentTimeMillis()) + ");";
 
         executeQuery(query);
 
@@ -34,6 +34,8 @@ public class HistoryManager extends ModelManager{
                 History history = generateHistory(resultSet);
                 histories.add(history);
             }
+            con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,6 +55,8 @@ public class HistoryManager extends ModelManager{
                 History history = generateHistory(resultSet);
                 histories.add(history);
             }
+            con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +80,8 @@ public class HistoryManager extends ModelManager{
                 History history = generateHistory(resultSet);
                 histories.add(history);
             }
+            con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
