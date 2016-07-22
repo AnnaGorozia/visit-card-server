@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManager {
+public class UserManager extends ModelManager {
 
     public static List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
@@ -56,14 +56,7 @@ public class UserManager {
                         user.getImage() + "','" + user.getEmail() + "','" + user.getPassword() + "','" +
                         user.getPhone() + "');";
 
-        try {
-            Connection con = DBConfig.getDataSource().getConnection();
-            PreparedStatement stmt = con.prepareStatement(query);
-            int result = stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        executeQuery(query);
 
     }
 
@@ -81,14 +74,7 @@ public class UserManager {
                 "',phone='" + user.getPhone() + "' where email='" + user.getEmail() + "';";
 
 
-        try {
-            Connection con = DBConfig.getDataSource().getConnection();
-            PreparedStatement stmt = con.prepareStatement(query);
-            int result = stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        executeQuery(query);
     }
 
     public static ArrayList<String> getUserCompanyIds(String userid) {
@@ -120,5 +106,4 @@ public class UserManager {
         user.setPhone( resultSet.getString("phone"));
         return user;
     }
-
 }

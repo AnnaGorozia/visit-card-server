@@ -9,10 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- * Created by Anna on 7/21/2016.
- */
-public class CardManager {
+public class CardManager extends CompanyManager{
 
 
     public static ArrayList<Card> getCardsForUser(String userid) {
@@ -234,5 +231,4 @@ public class CardManager {
             e.printStackTrace();
         }
     }
-
 }

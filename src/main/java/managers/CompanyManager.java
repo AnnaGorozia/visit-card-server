@@ -3,10 +3,7 @@ package managers;
 import models.Company;
 import models.User;
 
-/**
- * Created by Anna on 7/21/2016.
- */
-public class CompanyManager {
+public class CompanyManager extends ModelManager{
 
 
     public void addCompany(Company company) {}
