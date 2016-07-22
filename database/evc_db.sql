@@ -81,6 +81,11 @@ create table if not exists histories(
     foreign key(card_id) references cards(id) on delete cascade
 );
 
+insert into companies (name, email, password, address, phone)
+values
+('Redberry', 'redberry@gmail.com', 'anano@gmail.com', '3242342342', '568989898'),
+('Azry', 'azry@gmail.com', 'anna@gmail.com', '1212121212', '595504124'),
+('BOG', 'bog@gmail.com', 'mamuka@gmail.com', '5656565656', '555094043');
 
 insert into users (first_name, last_name, email, password, phone)
 values
@@ -104,3 +109,5 @@ insert into companies(name) values('ss');
 
 insert into company_cards(company_id, card_id) values(1,1);
 
+
+select * from users

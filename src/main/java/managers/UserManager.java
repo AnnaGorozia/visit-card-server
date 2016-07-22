@@ -83,7 +83,7 @@ public class UserManager extends ModelManager {
 
         try {
             Connection con = DBConfig.getDataSource().getConnection();
-            String query = "SELECT company_id from users, company_employees where users.id=user_id";
+            String query = "SELECT company_id from users, company_employees where user_id=" + userid + ";";
             PreparedStatement stmt = con.prepareStatement(query);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {

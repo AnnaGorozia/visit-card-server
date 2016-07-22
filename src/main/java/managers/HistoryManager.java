@@ -41,9 +41,46 @@ public class HistoryManager extends ModelManager{
         return histories;
     }
 
-    public ArrayList<History> getCompanyHistory(String companyId) {
+    public ArrayList<History> getUserReceivedHistory(String userId) {
+        ArrayList<History> histories = new ArrayList<History>();
 
-        return null;
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            String query = "SELECT * FROM histories where receiver_id='" + userId + "'";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                History history = generateHistory(resultSet);
+                histories.add(history);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return histories;
+    }
+
+    public ArrayList<History> getCompanyHistory(String companyId) {
+        ArrayList<History> histories = new ArrayList<History>();
+
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            String query = "SELECT * FROM histories where card_id in " +
+                    "(SELECT card_id FROM company_cards where card_id in " +
+                    "(SELECT id FROM cards where id in " +
+                    "(SELECT card_id FROM user_cards where user_id " +
+                    "in (Select user_id FROM company_employees where company_id = '" + companyId + "'))))";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                History history = generateHistory(resultSet);
+                histories.add(history);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return histories;
     }
 
 
