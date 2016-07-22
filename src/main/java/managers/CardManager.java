@@ -46,6 +46,7 @@ public class CardManager extends CompanyManager{
         return cardsList;
     }
 
+
     public static Card getCard(String cardid) {
 
 
@@ -88,6 +89,7 @@ public class CardManager extends CompanyManager{
         return card;
     }
 
+
     public static ArrayList<Card> getCardsForCompany(String companyid) {
         String query = "select card_id from company_cards where company_id='" + companyid + "';";
 
@@ -115,6 +117,7 @@ public class CardManager extends CompanyManager{
 
         return cardsList;
     }
+
 
     public static int addCard(Card card) {
         String query = "insert into cards(width, height) values(50,50);";
@@ -163,6 +166,7 @@ public class CardManager extends CompanyManager{
     }
 
 
+
     public static void addCardForUser(String userid, Card card) {
 
         int cardid = addCard(card);
@@ -180,6 +184,8 @@ public class CardManager extends CompanyManager{
 
     }
 
+
+
     public static void addCardForCompany(String companyid, Card card) {
         int cardid = addCard(card);
 
@@ -194,6 +200,7 @@ public class CardManager extends CompanyManager{
             e.printStackTrace();
         }
     }
+
 
     public static void updateCard(Card card) {
 
@@ -216,7 +223,7 @@ public class CardManager extends CompanyManager{
             e.printStackTrace();
         }
 
-     }
+    }
 
     public static void deleteCard(String cardid) {
         try {

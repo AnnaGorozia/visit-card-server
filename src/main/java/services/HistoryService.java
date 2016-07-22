@@ -1,8 +1,8 @@
-package example;
+package services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import managers.CardManager;
+import managers.HistoryManager;
 
 import javax.jws.WebService;
 import javax.ws.rs.GET;
@@ -12,16 +12,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @WebService
-@Path("/CardService")
-public class CardService {
+@Path("/HistoryService")
+public class HistoryService {
 
     private Gson gson = new GsonBuilder().create();
 
     @GET
-    @Path("/cards/user/{userId}")
+    @Path("/histories/user/{userId}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getUserCards(@PathParam("userId") String userId) {
-        return gson.toJson(CardManager.getCardsForUser(userId));
+    public String getUserHistories(@PathParam("userId") String userId) {
+        return gson.toJson(HistoryManager.getUserHistory(userId));
     }
 
 }

@@ -105,6 +105,27 @@ public class UserManager extends ModelManager {
     }
 
 
+    public static boolean logInSuccessed(String email, String password) {
+
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+
+            String query = "select exists(select * from users where email='" + email +
+                    "' and password='" + password + "';";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                boolean rest = resultSet.getBoolean(1);
+                return rest;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
     public static void deleteCompany(String userid, String companyid) {
         String query = "delete from company_employees where company_id=" + companyid + " and user_id=" + userid + ";";
 

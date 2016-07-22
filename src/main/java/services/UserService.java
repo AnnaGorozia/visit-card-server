@@ -1,4 +1,4 @@
-package example;
+package services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,12 +8,9 @@ import models.Company;
 import models.User;
 
 import javax.jws.WebService;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +21,28 @@ public class UserService {
   private Gson gson = new GsonBuilder().create();
 
   @GET
-  @Path("/users")
+  @Path("/users/email/{email}/password/{password}")
   @Produces({MediaType.APPLICATION_JSON})
-  public Response getUsers() throws Exception{
+  public Response getUsers(@PathParam("email") String email,
+                           @PathParam("password") String password) throws Exception{
+
+      boolean succeed = UserManager.logInSuccessed(email, password);
+
+      return Response.status(Response.Status.OK).entity(succeed).build();
+  }
+
+
+  @GET
+  @Path("/users/login")
+  @Produces({MediaType.APPLICATION_JSON})
+  public Response getAuthorization() throws Exception{
 
     List<User> users = UserManager.getAllUsers();
     return Response.status(Response.Status.OK).entity(gson.toJson(users)).build();
 
   }
+
+
 
   @GET
   @Path("/users/{userEmail}")

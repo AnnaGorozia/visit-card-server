@@ -4,21 +4,21 @@
 
     <endpoint
             name='UserService'
-            implementation='example.UserService'
+            implementation='services.UserService'
             url-pattern='/services/UserService'/>
 
     <endpoint
             name='CompanyService'
-            implementation='example.CompanyService'
+            implementation='services.CompanyService'
             url-pattern='/services/CompanyService'/>
 
     <endpoint
             name='HistoryService'
-            implementation='example.HistoryService'
+            implementation='services.HistoryService'
             url-pattern='/services/HistoryService'/>
 
     <endpoint
             name='CardService'
-            implementation='example.CardService'
+            implementation='services.CardService'
             url-pattern='/services/CardService'/>
 </endpoints>
