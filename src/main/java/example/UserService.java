@@ -19,7 +19,7 @@ import java.util.List;
 
 @WebService
 @Path("/UserService")
-public class HelloWorld {
+public class UserService {
 
   private Gson gson = new GsonBuilder().create();
 
@@ -53,5 +53,22 @@ public class HelloWorld {
     }
     return gson.toJson(companies);
   }
-  
+
+  @POST
+  @Path("/registrateUser")
+  @Produces({MediaType.APPLICATION_JSON})
+  public String addUser(String body) {
+    User user = gson.fromJson(body, User.class);
+    UserManager.addUser(user);
+    return "OK";
+  }
+
+  @POST
+  @Path("/updateUser")
+  @Produces({MediaType.APPLICATION_JSON})
+  public String updateUser(String body) {
+    User user = gson.fromJson(body, User.class);
+    UserManager.updateUser(user);
+    return "OK";
+  }
 }
