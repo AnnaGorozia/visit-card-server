@@ -167,6 +167,40 @@ public class TemplateManager extends CompanyManager{
         return cardid;
     }
 
+    public static void addTemplateForCompany(String companyid, String templateid) {
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+
+            String query = "insert into company_tempaltes(company_id, template_id) values("
+                    + companyid + "," + templateid + ");";
+
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addTemplateForCompany(String companyid, Template template) {
+        try {
+
+            int templateid = addTemplate(template);
+
+            Connection con = DBConfig.getDataSource().getConnection();
+
+            String query = "insert into company_tempaltes(company_id, template_id) values("
+                    + companyid + "," + templateid + ");";
+
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void deleteTemplate(String templateid) {
         try {
