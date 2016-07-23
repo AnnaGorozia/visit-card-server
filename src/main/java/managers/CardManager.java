@@ -94,14 +94,20 @@ public class CardManager {
     }
 
     public static int addCard(Card card) {
-        String query = "insert into cards(path) values('" + card + "');";
+
+        String query = "insert into cards(path) values('" + card.getPath() + "');";
+
+        System.out.println(query);
 
         int cardid = 0;
 
         try {
             Connection con = DBConfig.getDataSource().getConnection();
             PreparedStatement stmt = con.prepareStatement(query);
-            cardid = stmt.executeUpdate();
+            stmt.executeUpdate();
+            ResultSet rs  = stmt.executeQuery("SELECT distinct(last_insert_id()) as id from cards;");
+            rs.next();
+            cardid = rs.getInt("id");
 
             con.close();
 
@@ -119,10 +125,13 @@ public class CardManager {
 
         String query = "insert into user_cards(user_id, card_id) values(" + userid + "," + cardid + ");";
 
+        System.out.println(query);
+
         try {
             Connection con = DBConfig.getDataSource().getConnection();
             PreparedStatement stmt = con.prepareStatement(query);
-            cardid = stmt.executeUpdate();
+            stmt.executeUpdate();
+
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +147,7 @@ public class CardManager {
         try {
             Connection con = DBConfig.getDataSource().getConnection();
             PreparedStatement stmt = con.prepareStatement(query);
-            cardid = stmt.executeUpdate();
+            stmt.executeUpdate();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();

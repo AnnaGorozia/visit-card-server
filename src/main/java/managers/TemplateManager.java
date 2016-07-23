@@ -129,7 +129,10 @@ public class TemplateManager extends CompanyManager{
         try {
             Connection con = DBConfig.getDataSource().getConnection();
             PreparedStatement stmt = con.prepareStatement(query);
-            cardid = stmt.executeUpdate();
+            stmt.executeUpdate();
+            ResultSet rs  = stmt.executeQuery("SELECT last_insert_id() from templates;");
+            rs.next();
+            cardid = rs.getInt(1);
 
             con.close();
         } catch (SQLException e) {
