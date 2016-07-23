@@ -35,23 +35,35 @@ create table if not exists company_employees(
 
 create table if not exists cards(
 	id int not null auto_increment primary key,
-    height int,
-    width int
+    path text
 );
 
+create table if not exists templates(
+    id int not null auto_increment primary key,
+    width int,
+    height int,
+    owner text
+);
 
+create table if not exists company_templates(
+    id int not null auto_increment primary key,
+    company_id int,
+    template_id int,
+    foreign key(company_id) references companies(id),
+    foreign key(template_id) references templates(id)
+);
 
 create table if not exists field_properties(
 	id int not null auto_increment primary key,
     field_name_id int,
-    card_id int,
+    template_id int,
     location_x int,
     location_y int,
     field_value text,
     field_color_id int,
     field_font_id int,
     font_size int,
-    foreign key(card_id) references cards(id) on delete cascade
+    foreign key(template_id) references templates(id) on delete cascade
 );
 
 create table if not exists company_cards(
@@ -81,6 +93,7 @@ create table if not exists histories(
     foreign key(card_id) references cards(id) on delete cascade
 );
 
+
 insert into companies (name, email, password, address, phone)
 values
 ('Redberry', 'redberry@gmail.com', 'anano@gmail.com', '3242342342', '568989898'),
@@ -93,16 +106,22 @@ values
 ('Anna', 'Gorozia', 'anna@gmail.com', '1212121212', '595504124'),
 ('Mamuka', 'Sakhelashvili', 'mamuka@gmail.com', '5656565656', '555094043');
 
+
 select * from users;
 
 
-insert into cards(width, height) values(50,50);
+insert into templates(width, height, owner) values(50,50, 'user');
 
 
-insert into field_properties(field_name_id, card_id, location_x, location_y, field_value,
+insert into templates(width, height, owner) values(50,50, 'Company');
+
+insert into company_templates(company_id, template_id) values(1,1);
+
+insert into field_properties(field_name_id, template_id, location_x, location_y, field_value,
                             field_color_id, field_font_id, font_size)
                             values(1, 1, 40, 40, "John", 1, 1, 17);
 
+insert into cards(path) values('kakashi.png');
 insert into user_cards(user_id, card_id) values(1,1);
 
 insert into companies(name) values('ss');
@@ -110,4 +129,4 @@ insert into companies(name) values('ss');
 insert into company_cards(company_id, card_id) values(1,1);
 
 
-select * from users
+select * from users;

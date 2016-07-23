@@ -1,39 +1,36 @@
 package models;
 
-import java.util.ArrayList;
-
 /**
- * Created by khrak on 7/22/16.
+ * Created by khrak on 7/23/16.
  */
 public class Card {
 
+    private String path;
     private String id;
-    private ArrayList<Field> fields = new ArrayList<Field>();
 
 
-    public Card(String id) {
+    public Card(String path) {
+        this.path = path;
+    }
+
+    public Card(String id, String path) {
+        this.path = path;
         this.id = id;
     }
 
-    public Card() {
+    public void setPath(String path) {
+        this.path = path;
+    }
 
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getid(){
         return id;
     }
 
-    public void setid(String id) {
-        this.id = id;
+    public String getPath() {
+        return path;
     }
-
-    public void addField(Field field) {
-        fields.add(field);
-    }
-
-    public ArrayList<Field> getFields(){
-        return fields;
-    }
-
-
 }

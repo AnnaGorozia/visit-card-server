@@ -53,8 +53,6 @@ public class CardService {
         return "OK";
     }
 
-    //  deleteCard
-
     @GET
     @Path("/cards/company/{companyid}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -65,15 +63,6 @@ public class CardService {
         return "OK";
     }
 
-    @POST
-    @Path("/cards/updateCard")
-    @Produces({MediaType.APPLICATION_JSON})
-    public String updateCard(String body) {
-        Card card = gson.fromJson(body, Card.class);
-        CardManager.updateCard(card);
-
-        return "OK";
-    }
 
     @GET
     @Path("/cards/deleteCard/{cardid}")
