@@ -1,4 +1,4 @@
-package example;
+package services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,12 +8,9 @@ import models.Company;
 import models.User;
 
 import javax.jws.WebService;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +38,17 @@ public class UserService {
     return gson.toJson(user);
   }
 
+  @POST
+  @Path("/users/userLogin/{userEmail}/{password}")
+  @Produces({MediaType.APPLICATION_JSON})
+  public String getUserIdAfterLogin(@PathParam("userEmail") String userEmail, @PathParam("password") String password){
+    String userId = "-1";
+    if (UserManager.logInSuccessed(userEmail, password)) {
+      userId = UserManager.getUserByEmail(userEmail).getid();
+    }
+    return userId;
+  }
+
 
   @GET
   @Path("/users/companies/{userId}")
@@ -59,8 +67,11 @@ public class UserService {
   @Produces({MediaType.APPLICATION_JSON})
   public String addUser(String body) {
     User user = gson.fromJson(body, User.class);
-    UserManager.addUser(user);
-    return "OK";
+    String userId = UserManager.addUser(user);
+    if (userId.length() == 0) {
+      userId = "-1";
+    }
+    return userId;
   }
 
   @POST

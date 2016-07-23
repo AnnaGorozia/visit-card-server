@@ -16,6 +16,7 @@ public class HelloWorldClient {
 
   private static Gson gson = new GsonBuilder().create();
   private static Client client = ClientBuilder.newClient();
+  private static Object userIdAfterLogin;
 
   public static void main(String[] args) {
 
@@ -32,9 +33,10 @@ public class HelloWorldClient {
 //
 //      updateCard();
 
-    addTemplate();
-    addTemplateForCompanyByid();
-    addTempalteForCompanyByObject();
+//    addTemplate();
+//    addTemplateForCompanyByid();
+//    addTempalteForCompanyByObject();
+    getUserIdAfterLogin();
   }
 
   private static void addTempalteForCompanyByObject() {
@@ -167,5 +169,16 @@ public class HelloWorldClient {
             .request(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
             .post(Entity.entity(body, MediaType.APPLICATION_JSON));
+  }
+
+  public static void getUserIdAfterLogin() {
+    String url = "http://localhost:8082/UserService/users/userLogin/test@mail.com/123456";
+
+    Response simulatorResponse = client.target(url)
+            .request(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .post(Entity.entity("", MediaType.APPLICATION_JSON));
+    System.out.println(simulatorResponse.toString());
+
   }
 }

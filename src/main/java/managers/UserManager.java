@@ -49,15 +49,25 @@ public class UserManager extends ModelManager {
         return user;
     }
 
-    public static void addUser(User user) {
+    public static String addUser(User user) {
 
         String query = "insert into users(first_name, last_name, image, email, password, phone) " +
                         "values('" + user.getFirstName() + "','" + user.getLastName() + "','" +
                         user.getImage() + "','" + user.getEmail() + "','" + user.getPassword() + "','" +
                         user.getPhone() + "');";
-
-        executeQuery(query);
-
+        String userId = "";
+        try {
+            Connection con = DBConfig.getDataSource().getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.executeUpdate();
+            ResultSet rs  = stmt.executeQuery("SELECT distinct(last_insert_id()) as id from users;");
+            rs.next();
+            userId += rs.getInt("id");
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userId;
     }
 
     public static  void addUsers(ArrayList<User> usersList) {
@@ -158,6 +168,9 @@ public class UserManager extends ModelManager {
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
         user.setEmail(resultSet.getString("email"));
+        user.setId(resultSet.getString("id"));
+        user.setImage(resultSet.getString("image"));
+        user.setPassword(resultSet.getString("password"));
         user.setPhone( resultSet.getString("phone"));
         return user;
     }
