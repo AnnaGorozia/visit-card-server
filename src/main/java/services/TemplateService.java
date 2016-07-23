@@ -56,4 +56,24 @@ public class TemplateService {
         return "OK";
     }
 
+    @POST
+    @Path("/templates/addTemplateForCompany/company/{companyid}/tempalte/{templateid}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String addTemplateForCompanyByid(@PathParam("companyid") String companyid,
+                                 @PathParam("templateid") String templateid) {
+        TemplateManager.addTemplateForCompany(companyid, templateid);
+        return "OK";
+    }
+
+    @POST
+    @Path("/templates/addTemplateForCompany/company/{companyid}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String addTempalteForCompanyByObject(@PathParam("companyid") String companyid,
+                                 String template) {
+        Template templ = gson.fromJson(template, Template.class);
+
+        TemplateManager.addTemplateForCompany(companyid, templ);
+        return "OK";
+    }
+
 }
