@@ -174,7 +174,7 @@ public class TemplateManager extends CompanyManager{
         try {
             Connection con = DBConfig.getDataSource().getConnection();
 
-            String query = "insert into company_tempaltes(company_id, template_id) values("
+            String query = "insert into company_templates(company_id, template_id) values("
                     + companyid + "," + templateid + ");";
 
             PreparedStatement stmt = con.prepareStatement(query);
@@ -192,7 +192,7 @@ public class TemplateManager extends CompanyManager{
 
             Connection con = DBConfig.getDataSource().getConnection();
 
-            String query = "insert into company_tempaltes(company_id, template_id) values("
+            String query = "insert into company_templates(company_id, template_id) values("
                     + companyid + "," + templateid + ");";
 
             PreparedStatement stmt = con.prepareStatement(query);

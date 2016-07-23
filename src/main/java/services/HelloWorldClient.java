@@ -1,12 +1,10 @@
-package example;
+package services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import managers.CardManager;
 import managers.UserManager;
-import models.Company;
-import models.History;
-import models.User;
+import models.*;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -21,11 +19,114 @@ public class HelloWorldClient {
 
   public static void main(String[] args) {
 
-    addCompany();
-    addEmployee();
-    addHistory();
+//    addCompany();
+//    addEmployee();
+//    addHistory();
+
+
+//      addCard();
+//
+//      addUserCard();
+//
+//      addCompanyCard();
+//
+//      updateCard();
+
+    addTemplate();
+    addTemplateForCompanyByid();
+    addTempalteForCompanyByObject();
+  }
+
+  private static void addTempalteForCompanyByObject() {
+
+    String url = "http://localhost:8082/TemplateService/templates/addTemplateForCompany/company/1";
+    Template template = new Template();
+    template.setOwner("company");
+
+    String body = gson.toJson(template);
+
+    Response simulatorResponse = client.target(url)
+            .request(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .post(Entity.entity(body, MediaType.APPLICATION_JSON));
+
+
 
   }
+
+  private static void addTemplateForCompanyByid() {
+    String url = "http://localhost:8082/TemplateService/templates/addTemplateForCompany/company/1/tempalte/1";
+
+    Response simulatorResponse = client.target(url)
+            .request(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .post(Entity.entity(null, MediaType.APPLICATION_JSON));
+
+  }
+
+  private static void addTemplate() {
+    String url = "http://localhost:8082/TemplateService/templates/addTemplate";
+
+    Template template = new Template();
+    template.setOwner("user");
+
+    String body = gson.toJson(template);
+
+    Response simulatorResponse = client.target(url)
+            .request(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .post(Entity.entity(body, MediaType.APPLICATION_JSON));
+
+  }
+
+  private static void addCompanyCard() {
+    // /cards/addCard/company/{companyid}
+
+    Card card = new Card("company_card");
+
+    String body = gson.toJson(card);
+
+    String url = "http://localhost:8082/CardService/cards/company/addCard/1";
+
+    Response simulatorResponse = client.target(url)
+            .request(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .post(Entity.entity(body, MediaType.APPLICATION_JSON));
+
+  }
+
+  private static void addUserCard() {
+
+    // /cards/addUser/user/{userid}
+
+    Card card = new Card("user_card");
+
+    String body = gson.toJson(card);
+
+    String url = "http://localhost:8082/CardService/cards/user/addCard/1";
+
+    Response simulatorResponse = client.target(url)
+            .request(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .post(Entity.entity(body, MediaType.APPLICATION_JSON));
+
+  }
+
+//  private static void addCard() {
+//
+//    Card card = new Card("path_to_file");
+//
+//    String body = gson.toJson(card);
+//
+//    String url = "http://localhost:8082/CardService/cards/addcard";
+//
+//    Response simulatorResponse = client.target(url)
+//            .request(MediaType.APPLICATION_JSON)
+//            .accept(MediaType.APPLICATION_JSON)
+//            .post(Entity.entity(body, MediaType.APPLICATION_JSON));
+//
+//
+//  }
 
   private static void addHistory() {
     History history = new History();
