@@ -1,9 +1,11 @@
-package services;
+package example;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import managers.CompanyManager;
+import managers.HistoryManager;
 import models.Company;
+import models.History;
 import models.User;
 
 import javax.jws.WebService;
@@ -33,6 +35,16 @@ public class CompanyService {
     public String addCompany(String body) {
         Company company = gson.fromJson(body, Company.class);
         CompanyManager.addCompany(company);
+        return "OK";
+    }
+
+    @POST
+    @Path("/addHistory")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String addHistory(String body) {
+        System.out.println(body);
+        History history = gson.fromJson(body, History.class);
+        HistoryManager.addHistory(history.getSenderId(), history.getReceiverId(), history.getCardId());
         return "OK";
     }
 

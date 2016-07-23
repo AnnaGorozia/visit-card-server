@@ -8,7 +8,7 @@ public class History {
     private String senderId;
     private String receiverId;
     private String cardId;
-    private Date date;
+    private String date;
 
     public String getId() {
         return id;
@@ -42,11 +42,11 @@ public class History {
         this.cardId = cardId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

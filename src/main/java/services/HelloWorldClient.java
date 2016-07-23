@@ -1,4 +1,4 @@
-package services;
+package example;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,18 +23,18 @@ public class HelloWorldClient {
 
     addCompany();
     addEmployee();
-//    addHistory();
+    addHistory();
 
   }
 
   private static void addHistory() {
     History history = new History();
-    history.setSenderId("3");
-    history.setReceiverId("1");
-    history.setCardId(CardManager.getCardsForUser("3").get(0).getid());
+    history.setSenderId("1");
+    history.setReceiverId("2");
+    history.setCardId(CardManager.getCardsForUser("1").get(0).getid());
     String body = gson.toJson(history);
 
-    String url = "http://localhost:8082/HistoryService/addHistory";
+    String url = "http://localhost:8082/CompanyService/addHistory";
 
     Response simulatorResponse = client.target(url)
             .request(MediaType.APPLICATION_JSON)
