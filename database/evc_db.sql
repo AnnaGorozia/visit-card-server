@@ -49,8 +49,8 @@ create table if not exists company_templates(
     id int not null auto_increment primary key,
     company_id int,
     template_id int,
-    foreign key(company_id) references companies(id),
-    foreign key(template_id) references templates(id)
+    foreign key(company_id) references companies(id) on delete cascade,
+    foreign key(template_id) references templates(id) on delete cascade
 );
 
 create table if not exists field_properties(
