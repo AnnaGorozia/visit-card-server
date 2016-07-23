@@ -158,7 +158,9 @@ public class UserManager extends ModelManager {
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
         user.setEmail(resultSet.getString("email"));
+        user.setId(resultSet.getString("id"));
+        user.setImage(resultSet.getString("image"));
+        user.setPassword(resultSet.getString("password"));
         user.setPhone( resultSet.getString("phone"));
         return user;
     }
-}
