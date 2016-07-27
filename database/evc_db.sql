@@ -122,11 +122,26 @@ insert into field_properties(field_name_id, template_id, location_x, location_y,
                             values(1, 1, 40, 40, "John", 1, 1, 17);
 
 insert into cards(path) values('kakashi.png');
-insert into user_cards(user_id, card_id) values(1,1);
+insert into user_cards(user_id, card_id) 
+values
+(2,1),
+(2,2);
 
 insert into companies(name) values('ss');
 
+insert into cards(path) 
+values
+('http://res.cloudinary.com/dpavqa5hs/image/upload/v1469465363/m37xlfduohrasf3pfwph.png'),
+('http://res.cloudinary.com/dpavqa5hs/image/upload/v1469525310/aynhujdbsu7h9z31xdta.png');
+
 insert into company_cards(company_id, card_id) values(1,1);
 
+insert into company_employees(company_id, user_id)
+values
+(1, 2),
+(3, 3),
+(2, 1);
 
 select * from users;
+
+select exists(select * from users where email='anano@gmail.com' and password='3242342342');
